@@ -13,11 +13,8 @@ public class ItemService {
 
     private final ItemRepository itemRepository;
 
-    Item[] items;
-
-    public ItemService(ItemRepository itemRepository, Item[] items) {
+    public ItemService(ItemRepository itemRepository) {
         this.itemRepository = itemRepository;
-        this.items = items;
     }
 
     public List<Item> updateQuality() {
@@ -94,5 +91,10 @@ public class ItemService {
     public Item findById(int id) {
         return itemRepository.findById(id).orElseThrow(
                 ()-> new ResourceNotFoundException(""));
+    }
+
+    public void deleteById(int id) {
+        Item item = findById(id);
+        itemRepository.delete(item);
     }
 }
